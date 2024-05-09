@@ -16,6 +16,7 @@ public class RegisterRequest {
     String phone_number;
     String card_number;
     String email;
+    String role;
     String address;
     String username;
     String password;

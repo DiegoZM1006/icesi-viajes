@@ -7,12 +7,12 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface EmployeeRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByUsername(String username);
 
-    @Query("SELECT u FROM User u WHERE u.role = 'CLIENT'")
-    List<User> findClients();
+    @Query("SELECT u FROM User u WHERE u.role = 'ADMIN' or u.role = 'AGENT'")
+    List<User> findEmployees();
 
     User findById(Integer id);
 
