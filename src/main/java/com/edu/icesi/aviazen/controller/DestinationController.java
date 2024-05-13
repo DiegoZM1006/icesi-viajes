@@ -10,10 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,6 +26,24 @@ public class DestinationController {
     {
         List<Destination> destinations = destinationService.findAll();
         return new ResponseEntity<>(destinations, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "saveDestination")
+    public ResponseEntity<Destination> saveDestination(@RequestBody DestinationDTO destinationDTO, @RequestHeader("Authorization") String token) throws Exception {
+        Destination destination = new Destination();
+        destination.setName(destinationDTO.getName());
+        destination.setDescription(destinationDTO.getDescription());
+        destination.setAditional_information(destinationDTO.getAditional_information());
+        destination.setCountry(destinationDTO.getCountry());
+        destination.setCity(destinationDTO.getCity());
+        destination.setDays(destinationDTO.getDays());
+        destination.setNights(destinationDTO.getNights());
+        destination.setTickets(destinationDTO.getTickets());
+        destination.setHotel(destinationDTO.getHotel());
+        destination.setImage(destinationDTO.getImage());
+        destination.setPrice(destinationDTO.getPrice());
+        destinationService.save(destination);
+        return new ResponseEntity<>(destination, HttpStatus.CREATED);
     }
 
 }

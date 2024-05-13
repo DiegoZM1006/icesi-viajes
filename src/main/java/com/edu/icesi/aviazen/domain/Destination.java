@@ -15,7 +15,8 @@ import lombok.NoArgsConstructor;
 public class Destination {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "destinations_seq_generator")
+    @SequenceGenerator(name = "destinations_seq_generator", sequenceName = "destinations_seq", allocationSize = 1)
     private Integer id;
     @Column(name = "name", nullable = false)
     private String name;
