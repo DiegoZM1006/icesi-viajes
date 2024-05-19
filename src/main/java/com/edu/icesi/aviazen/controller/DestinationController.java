@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/destinations")
@@ -44,6 +45,35 @@ public class DestinationController {
         destination.setPrice(destinationDTO.getPrice());
         destinationService.save(destination);
         return new ResponseEntity<>(destination, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping(value = "deleteDestination/{id}")
+    public ResponseEntity<String> deleteDestination(@PathVariable Long id, @RequestHeader("Authorization") String token) throws Exception {
+        destinationService.deleteById(id);
+        return new ResponseEntity<>("Destino eliminado", HttpStatus.OK);
+    }
+
+    @PutMapping(value = "updateDestination/{id}")
+    public ResponseEntity<Destination> updateDestination(@PathVariable Long id, @RequestBody DestinationDTO destinationDTO, @RequestHeader("Authorization") String token) throws Exception {
+        Optional<Destination> destinationOp = destinationService.findById(id);
+        if (destinationOp.isPresent()) {
+            Destination destination = destinationOp.get();
+            destination.setName(destinationDTO.getName());
+            destination.setDescription(destinationDTO.getDescription());
+            destination.setAditional_information(destinationDTO.getAditional_information());
+            destination.setCountry(destinationDTO.getCountry());
+            destination.setCity(destinationDTO.getCity());
+            destination.setDays(destinationDTO.getDays());
+            destination.setNights(destinationDTO.getNights());
+            destination.setTickets(destinationDTO.getTickets());
+            destination.setHotel(destinationDTO.getHotel());
+            destination.setImage(destinationDTO.getImage());
+            destination.setPrice(destinationDTO.getPrice());
+            destinationService.save(destination);
+            return new ResponseEntity<>(destination, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
 }
