@@ -29,6 +29,17 @@ public class DestinationController {
         return new ResponseEntity<>(destinations, HttpStatus.OK);
     }
 
+    @GetMapping(value = "searchDestination/{id}")
+    public ResponseEntity<?> searchDestination(@RequestHeader("Authorization") String token, @PathVariable Long id)
+    {
+        Optional<Destination> destination = destinationService.findById(id);
+        if (destination.isPresent()) {
+            return new ResponseEntity<>(destination, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Destino no encontrado", HttpStatus.NOT_FOUND);
+        }
+    }
+
     @PostMapping(value = "saveDestination")
     public ResponseEntity<Destination> saveDestination(@RequestBody DestinationDTO destinationDTO, @RequestHeader("Authorization") String token) throws Exception {
         Destination destination = new Destination();
