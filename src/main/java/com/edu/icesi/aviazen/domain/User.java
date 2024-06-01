@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.Collection;
 import java.util.List;
@@ -45,6 +46,7 @@ public class User implements UserDetails {
     private String username;
     @Column(name = "password", nullable = false)
     private String password;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

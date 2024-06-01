@@ -64,7 +64,7 @@ public class DestinationController {
         return new ResponseEntity<>("Destino eliminado", HttpStatus.OK);
     }
 
-    @PutMapping(value = "updateDestination/{id}")
+    @PostMapping(value = "updateDestination/{id}")
     public ResponseEntity<Destination> updateDestination(@PathVariable Long id, @RequestBody DestinationDTO destinationDTO, @RequestHeader("Authorization") String token) throws Exception {
         Optional<Destination> destinationOp = destinationService.findById(id);
         if (destinationOp.isPresent()) {

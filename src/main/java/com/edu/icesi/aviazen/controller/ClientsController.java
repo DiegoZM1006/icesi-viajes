@@ -48,6 +48,17 @@ public class ClientsController {
         }
     }
 
+    @GetMapping(value = "searchClientByCardNumber/{id}")
+    public ResponseEntity<?> searchClientByCardNumber(@RequestHeader("Authorization") String token, @PathVariable Integer id)
+    {
+        Optional<User> client = clientService.findByCardNumber(id);
+        if (client.isPresent()) {
+            return new ResponseEntity<>(client, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Cliente no encontrado", HttpStatus.NOT_FOUND);
+        }
+    }
+
     @PostMapping(value = "updateClient/{id}")
     public ResponseEntity<?> updateClient(@RequestHeader("Authorization") String token, @PathVariable Integer id, @RequestBody RegisterRequest user) throws Exception {
         Optional<User> optionalClient = clientService.findById(id);

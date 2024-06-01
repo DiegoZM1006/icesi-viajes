@@ -15,4 +15,6 @@ public interface ClientService extends GenericService<User, Integer>{
 
     Optional<User> findById(Integer id);
 
+    Optional<User> findByCardNumber(Integer cardNumber);
+
 }

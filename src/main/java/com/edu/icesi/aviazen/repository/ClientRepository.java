@@ -16,4 +16,7 @@ public interface ClientRepository extends JpaRepository<User, Long> {
 
     User findById(Integer id);
 
+    @Query("SELECT u FROM User u WHERE u.card_number = ?1")
+    Optional<User> findByCardNumber(Integer cardNumber);
+
 }

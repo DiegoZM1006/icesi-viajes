@@ -37,6 +37,11 @@ public class ClientServiceImpl implements ClientService{
     }
 
     @Override
+    public Optional<User> findByCardNumber(Integer cardNumber) {
+        return clientRepository.findByCardNumber(cardNumber);
+    }
+
+    @Override
     public User save(User entity) throws Exception {
         return clientRepository.save(entity);
     }
