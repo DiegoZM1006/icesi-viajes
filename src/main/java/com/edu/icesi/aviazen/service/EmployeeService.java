@@ -16,4 +16,7 @@ public interface EmployeeService extends GenericService<User, Integer>{
 
     Optional<User> findById(Integer id);
 
+    @Query("SELECT COUNT(u) FROM User u WHERE u.role = 'ADMIN' or u.role = 'AGENT'")
+    Long countEmployees();
+
 }

@@ -5,6 +5,7 @@ import com.edu.icesi.aviazen.dto.ReservationDestinationDTO;
 import com.edu.icesi.aviazen.repository.ReservationDestinationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -55,6 +56,11 @@ public class ReservationDestinationImpl implements ReservationDestinationService
     @Override
     public Long count() {
         return null;
+    }
+
+    @Override
+    public List<Object[]> getTopFiveMostSalesDestinations(Pageable pageable) {
+        return reservationDestinationRepository.getTopFiveMostSalesDestinations(pageable);
     }
 
 }

@@ -42,6 +42,11 @@ public class ClientServiceImpl implements ClientService{
     }
 
     @Override
+    public Long countClients() {
+        return clientRepository.countClients();
+    }
+
+    @Override
     public User save(User entity) throws Exception {
         return clientRepository.save(entity);
     }

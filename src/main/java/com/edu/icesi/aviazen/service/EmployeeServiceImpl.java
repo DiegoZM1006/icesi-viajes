@@ -37,6 +37,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    public Long countEmployees() {
+        return employeeRepository.countEmployees();
+    }
+
+    @Override
     public User save(User entity) throws Exception {
         return employeeRepository.save(entity);
     }
@@ -63,6 +68,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Long count() {
-        return null;
+        return employeeRepository.count();
     }
 }

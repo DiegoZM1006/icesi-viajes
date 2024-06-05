@@ -19,4 +19,7 @@ public interface ClientRepository extends JpaRepository<User, Long> {
     @Query("SELECT u FROM User u WHERE u.card_number = ?1")
     Optional<User> findByCardNumber(Integer cardNumber);
 
+    @Query("SELECT COUNT(u) FROM User u WHERE u.role = 'CLIENT'")
+    Long countClients();
+
 }

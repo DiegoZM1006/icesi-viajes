@@ -35,7 +35,4 @@ public class Reservation {
     @Column(name = "total", nullable = false)
     private BigDecimal total;
 
-    /*@OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL)
-    private Set<ReservationDestination> reservationDestinations;*/
-
 }

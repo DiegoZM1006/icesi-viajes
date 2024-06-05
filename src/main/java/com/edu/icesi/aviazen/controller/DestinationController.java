@@ -87,4 +87,11 @@ public class DestinationController {
         }
     }
 
+    @GetMapping(value = "countDestinations")
+    public ResponseEntity<Long> allDestinations(@RequestHeader("Authorization") String token)
+    {
+        Long destinations = destinationService.count();
+        return new ResponseEntity<>(destinations, HttpStatus.OK);
+    }
+
 }

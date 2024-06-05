@@ -7,6 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,11 +58,41 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public Long count() {
-        return null;
+        return reservationRepository.count();
     }
 
     @Override
     public Optional<ReservationDTO> findById(Integer id) {
         return reservationRepository.findById(id);
     }
+
+    @Override
+    public Long getTotalPriceReservations() {
+        return reservationRepository.getTotalPriceReservations();
+    }
+
+    @Override
+    public List<Object> findWeeklySales() {
+        LocalDate now = LocalDate.now();
+        LocalDate startOfWeek = now.with(TemporalAdjusters.previousOrSame(java.time.DayOfWeek.MONDAY));
+        System.out.println(startOfWeek);
+        LocalDate endOfWeek = now.with(TemporalAdjusters.nextOrSame(java.time.DayOfWeek.SUNDAY));
+        System.out.println(endOfWeek);
+
+        LocalDateTime startOfWeekDateTime = startOfWeek.atStartOfDay();
+        LocalDateTime endOfWeekDateTime = endOfWeek.atTime(LocalTime.MAX);
+
+        return reservationRepository.findWeeklySales(startOfWeekDateTime, endOfWeekDateTime);
+    }
+
+    @Override
+    public List<Object> findTopTenBetterSeller() {
+        return reservationRepository.findTopTenBetterSeller();
+    }
+
+    @Override
+    public List<Object[]> findLatestSales() {
+        return reservationRepository.findLatestSales();
+    }
+
 }

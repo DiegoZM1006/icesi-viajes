@@ -89,4 +89,10 @@ public class ClientsController {
         }
     }
 
+    @GetMapping(value = "countClients")
+    public ResponseEntity<Long> countClients(@RequestHeader("Authorization") String token) {
+        Long clients = clientService.countClients();
+        return new ResponseEntity<>(clients, HttpStatus.OK);
+    }
+
 }

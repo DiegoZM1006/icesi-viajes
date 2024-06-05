@@ -80,4 +80,10 @@ public class EmployeeController {
         }
     }
 
+    @GetMapping(value = "countEmployees")
+    public ResponseEntity<Long> countEmployees(@RequestHeader("Authorization") String token) {
+        Long employees = employeeService.countEmployees();
+        return new ResponseEntity<>(employees, HttpStatus.OK);
+    }
+
 }

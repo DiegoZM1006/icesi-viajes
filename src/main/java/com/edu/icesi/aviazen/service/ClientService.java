@@ -17,4 +17,7 @@ public interface ClientService extends GenericService<User, Integer>{
 
     Optional<User> findByCardNumber(Integer cardNumber);
 
+    @Query("SELECT COUNT(u) FROM User u WHERE u.role = 'CLIENT'")
+    Long countClients();
+
 }
