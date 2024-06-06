@@ -11,7 +11,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
+
+/**
+ * Rest controller for managing user comments-related operations.
+ */
 
 @RestController
 @RequestMapping("/api/v1/users_comments")
@@ -21,6 +24,15 @@ public class UserCommentsController {
     private final UserCommentsService userCommentsService;
     private final DestinationService destinationService;
     private final ClientService clientService;
+
+    /**
+     * Saves a user comment.
+     *
+     * @param token the authorization token
+     * @param userComments the user comment details
+     * @return the saved user comment if successful, otherwise an error message
+     */
+
 
     @PostMapping(value = "saveComment")
     public ResponseEntity<?> saveComment(@RequestHeader("Authorization") String token, @RequestBody UserCommentsDTO userComments) {
@@ -46,6 +58,14 @@ public class UserCommentsController {
         }
     }
 
+    /**
+     * Retrieves comments for a specific destination.
+     *
+     * @param token the authorization token
+     * @param destination_id the destination ID
+     * @return a list of comments for the specified destination if successful, otherwise an error message
+     */
+
     @GetMapping(value = "getCommentsByDestination/{id}")
     public ResponseEntity<?> getCommentsByDestination(@RequestHeader("Authorization") String token, @PathVariable("id") Long destination_id) {
         try {
@@ -55,6 +75,14 @@ public class UserCommentsController {
             return ResponseEntity.badRequest().body("No se pudo obtener los comentarios");
         }
     }
+
+    /**
+     * Retrieves the average rating for a specific destination.
+     *
+     * @param token the authorization token
+     * @param destination_id the destination ID
+     * @return the average rating for the specified destination if successful, otherwise an error message
+     */
 
     @GetMapping(value = "countRatingByDestination/{id}")
     public ResponseEntity<?> countRatingByDestination(@RequestHeader("Authorization") String token, @PathVariable("id") Long destination_id) {

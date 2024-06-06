@@ -1,15 +1,17 @@
 package com.edu.icesi.aviazen.controller;
 
-import com.edu.icesi.aviazen.auth.AuthResponse;
 import com.edu.icesi.aviazen.domain.Reservation;
 import com.edu.icesi.aviazen.service.ReservationService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+/**
+ * Rest controller for managing reservation-related operations.
+ */
 
 @RestController
 @RequestMapping("/api/v1/reservation")
@@ -17,6 +19,14 @@ import java.util.List;
 public class ReservationController {
 
     private final ReservationService reservationService;
+
+    /**
+     * Adds a new reservation.
+     *
+     * @param token the authorization token
+     * @param request the reservation details
+     * @return the added reservation if successful, otherwise an error message
+     */
 
     @PostMapping(value = "addReservation")
     public ResponseEntity<?> addReservation(@RequestHeader("Authorization") String token, @RequestBody Reservation request) {
@@ -28,6 +38,13 @@ public class ReservationController {
         }
     }
 
+    /**
+     * Counts the total number of reservations.
+     *
+     * @param token the authorization token
+     * @return the total number of reservations if successful, otherwise an error message
+     */
+
     @GetMapping(value = "countReservations")
     public ResponseEntity<?> countReservations(@RequestHeader("Authorization") String token) {
         try {
@@ -37,6 +54,14 @@ public class ReservationController {
         }
     }
 
+    /**
+     * Gets the total price of all reservations.
+     *
+     * @param token the authorization token
+     * @return the total price of all reservations if successful, otherwise an error message
+     */
+
+
     @GetMapping(value = "totalPriceReservations")
     public ResponseEntity<?> getTotalPriceReservations(@RequestHeader("Authorization") String token) {
         try {
@@ -45,6 +70,14 @@ public class ReservationController {
             return new ResponseEntity<>("No se pudo obtener el precio total de las reservaciones", HttpStatus.BAD_REQUEST);
         }
     }
+
+    /**
+     * Gets the sales of the week.
+     *
+     * @param token the authorization token
+     * @return a list of weekly sales if successful, otherwise an error message
+     */
+
 
     @GetMapping(value = "salesOfTheWeek")
     public ResponseEntity<?> getSalesOfTheWeek(@RequestHeader("Authorization") String token) {
@@ -57,6 +90,13 @@ public class ReservationController {
         }
     }
 
+    /**
+     * Gets the top five best sellers.
+     *
+     * @param token the authorization token
+     * @return a list of the top five best sellers if successful, otherwise an error message
+     */
+
     @GetMapping(value = "topFiveBetterSeller")
     public ResponseEntity<?> getTopFiveBetterSeller(@RequestHeader("Authorization") String token) {
         try {
@@ -65,6 +105,13 @@ public class ReservationController {
             return new ResponseEntity<>("No se pudo obtener los cinco mejores vendedores", HttpStatus.BAD_REQUEST);
         }
     }
+
+    /**
+     * Gets the latest sales.
+     *
+     * @param token the authorization token
+     * @return a list of the latest sales if successful, otherwise an error message
+     */
 
     @GetMapping(value = "latestSales")
     public ResponseEntity<?> getLatestSales(@RequestHeader("Authorization") String token) {
