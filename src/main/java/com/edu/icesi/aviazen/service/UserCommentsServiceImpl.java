@@ -66,4 +66,5 @@ public class UserCommentsServiceImpl implements UserCommentsService {
     public Double countRatingByDestination(Long destination_id) {
         return userCommentsRepository.countRatingByDestination(destination_id);
     }
+
 }

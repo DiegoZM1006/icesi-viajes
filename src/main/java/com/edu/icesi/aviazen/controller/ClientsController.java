@@ -4,7 +4,9 @@ import com.edu.icesi.aviazen.auth.AuthResponse;
 import com.edu.icesi.aviazen.auth.AuthService;
 import com.edu.icesi.aviazen.auth.RegisterRequest;
 import com.edu.icesi.aviazen.domain.User;
+import com.edu.icesi.aviazen.repository.UserCommentsRepository;
 import com.edu.icesi.aviazen.service.ClientService;
+import com.edu.icesi.aviazen.service.UserCommentsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +25,7 @@ public class ClientsController {
     private final ClientService clientService;
     private final AuthService authService;
     private final PasswordEncoder passwordEncoder;
+    private final UserCommentsService userCommentsService;
 
     @GetMapping(value = "allClients")
     public ResponseEntity<List<User>> allClients(@RequestHeader("Authorization") String token)
@@ -82,7 +85,9 @@ public class ClientsController {
     public ResponseEntity<?> deleteClient(@RequestHeader("Authorization") String token, @PathVariable Integer id) throws Exception {
         Optional<User> optionalClient = clientService.findById(id);
         if (optionalClient.isPresent()) {
-            clientService.deleteById(id);
+            User client = optionalClient.get();
+            client.setStatus("inactive");
+            clientService.save(client);
             return new ResponseEntity<>("Cliente eliminado", HttpStatus.OK);
         } else {
             return new ResponseEntity<>("Cliente no encontrado", HttpStatus.NOT_FOUND);

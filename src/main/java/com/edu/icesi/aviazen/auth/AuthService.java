@@ -44,6 +44,7 @@ public class AuthService {
                 .address(request.getAddress())
                 .phone_number(request.getPhone_number())
                 .card_number(request.getCard_number())
+                .status("active")
                 .role(Role.CLIENT)
                 .build();
 
@@ -73,6 +74,7 @@ public class AuthService {
                 .phone_number(request.getPhone_number())
                 .card_number(request.getCard_number())
                 .role(roleUser)
+                .status("active")
                 .build();
 
         employeeRepository.save(user);

@@ -7,6 +7,7 @@ import com.edu.icesi.aviazen.domain.Role;
 import com.edu.icesi.aviazen.domain.User;
 import com.edu.icesi.aviazen.service.ClientService;
 import com.edu.icesi.aviazen.service.EmployeeService;
+import com.edu.icesi.aviazen.service.UserCommentsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,7 @@ public class EmployeeController {
     private final EmployeeService employeeService;
     private final AuthService authService;
     private final PasswordEncoder passwordEncoder;
+    private final UserCommentsService userCommentsService;
 
     @GetMapping(value = "allEmployees")
     public ResponseEntity<List<User>> allEmployees(@RequestHeader("Authorization") String token)
@@ -73,7 +75,9 @@ public class EmployeeController {
     public ResponseEntity<?> deleteEmployee(@RequestHeader("Authorization") String token, @PathVariable Integer id) throws Exception {
         Optional<User> optionalEmployee = employeeService.findById(id);
         if (optionalEmployee.isPresent()) {
-            employeeService.deleteById(id);
+            User employee = optionalEmployee.get();
+            employee.setStatus("inactive");
+            employeeService.save(employee);
             return new ResponseEntity<>("Empleado eliminado", HttpStatus.OK);
         } else {
             return new ResponseEntity<>("Empleado no encontrado", HttpStatus.NOT_FOUND);
