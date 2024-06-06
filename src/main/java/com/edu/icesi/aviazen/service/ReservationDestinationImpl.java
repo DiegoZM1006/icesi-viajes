@@ -63,4 +63,14 @@ public class ReservationDestinationImpl implements ReservationDestinationService
         return reservationDestinationRepository.getTopFiveMostSalesDestinations(pageable);
     }
 
+    @Override
+    public List<Object[]> getReservationDestinationsByClient(Long id) {
+        return reservationDestinationRepository.getReservationDestinationsByClient(id);
+    }
+
+    @Override
+    public List<Object[]> getReservationDestinationsBySeller(Long id) {
+        return reservationDestinationRepository.getReservationDestinationsBySeller(id);
+    }
+
 }

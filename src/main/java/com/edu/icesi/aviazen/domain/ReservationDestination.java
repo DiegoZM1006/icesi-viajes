@@ -3,6 +3,7 @@ package com.edu.icesi.aviazen.domain;
 import jakarta.persistence.*;
 import lombok.*;
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Data
 @Builder
@@ -30,5 +31,8 @@ public class ReservationDestination {
 
     @Column(name = "total", nullable = false)
     private BigDecimal total;
+
+    @Column(name = "reservation_date", nullable = false)
+    private Date reservation_date;
 
 }

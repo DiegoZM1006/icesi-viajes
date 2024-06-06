@@ -51,12 +51,35 @@ public class ReservationDestinationController {
         }
     }
 
+    @GetMapping(value = "getReservationDestinationsByClient/{id}")
+    public ResponseEntity<?> getReservationDestinationsByUser(@PathVariable("id") Long id) {
+        try {
+            List<Object[]> response = reservationDestinationService.getReservationDestinationsByClient(id);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("No se pudo obtener las reservaciones de destinos del usuario", HttpStatus.BAD_REQUEST);
+        }
+    }
+    @GetMapping(value = "getReservationDestinationsBySeller/{id}")
+    public ResponseEntity<?> getReservationDestinationsBySeller(@PathVariable("id") Long id) {
+        try {
+            List<Object[]> response = reservationDestinationService.getReservationDestinationsBySeller(id);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("No se pudo obtener las reservaciones de destinos del usuario", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
     private ReservationDestination mapToEntity(ReservationDestinationDTO dto) {
         ReservationDestination entity = new ReservationDestination();
         entity.setId(dto.getId());
         entity.setDestination(destinationService.findById(dto.getDestination_id()).get());
         entity.setReservation(reservationService.findById(dto.getReservation_id()).get());
         entity.setTotal(dto.getTotal());
+        entity.setReservation_date(dto.getReservation_date());
         return entity;
     }
 

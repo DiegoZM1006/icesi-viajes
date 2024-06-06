@@ -2,6 +2,7 @@ package com.edu.icesi.aviazen.dto;
 
 import lombok.*;
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -12,5 +13,6 @@ public class ReservationDestinationDTO {
     private Long reservation_id;
     private Long destination_id;
     private BigDecimal total;
+    private Date reservation_date;
 
 }
